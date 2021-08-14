@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+
+  # ---------------------------
+  # Web Application
+  # ---------------------------
+  ng-web-application:
+    container_name: ng-web-application
+    image: ng-nginx:1.18.0-alpine
+    build:
+      context: ../../web-application
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - "80:4200"
+
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
